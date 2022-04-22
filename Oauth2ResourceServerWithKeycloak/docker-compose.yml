@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  keycloak:
+    depends_on:
+      - postgres
+    container_name: keycloak
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    image: jboss/keycloak
+    ports:
+      - "8080:8080"
+    restart: always
